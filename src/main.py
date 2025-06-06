@@ -30,10 +30,11 @@ from langgraph.constants import Send
 load_dotenv()
 
 # set up langsmith tracing
-LANGSMITH_TRACING="true"
-LANGSMITH_ENDPOINT="https://api.smith.langchain.com"
-LANGSMITH_API_KEY=os.getenv("LANGSMITH_API_KEY")
-LANGSMITH_PROJECT="azure-langgraph"
+os.environ['LANGSMITH_TRACING']="true"
+os.environ['LANGSMITH_ENDPOINT']="https://api.smith.langchain.com"
+os.environ['LANGSMITH_API_KEY']=os.getenv("LANGSMITH_API_KEY")
+os.environ['LANGSMITH_PROJECT']="azure-langgraph"
+
 
 # prompts
 analyst_instructions = prompts.analyst_instructions
@@ -375,7 +376,7 @@ graph = builder.compile(checkpointer=memory)
 print(graph.get_graph(xray=1).draw_ascii())
 
 def main():
-    max_analysts = 3 
+    max_analysts = 2
     topic = "How long did time last when the universe was infinitely dense."
     thread = {"configurable": {"thread_id": "1"}}
     initial_state = {"topic": topic, "max_analysts": max_analysts}
